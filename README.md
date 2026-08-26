@@ -103,29 +103,29 @@ All scripts are standalone and resolve data paths relative to the project root (
 
 **1.1 `export_pimsoft_dat.py`** — decode the raw acquisition.
 - Input: `zhuxin.dat` (Pimsoft binary; edit `DAT_FILE` at the top of the script if the name differs).
-- Output: `DAT解析结果/整段数据_2641帧/*.npy` — four stacks `光强_intensity / 方差_variance / 散斑对比度_contrast / 灌注_perfusion` (2641×647×549, float), header info JSON, preview figure.
+- Output: `decoded_outputs/full_length_2641_frames/*.npy` — four modality stacks (intensity / variance / contrast / perfusion, 2641×647×549, float), header info JSON, preview figure. (Folder and file names on disk are Chinese; see the literal strings in `zh/1_dat_parsing/export_pimsoft_dat.py`.)
 - Config: `PREVIEW_SECOND` (preview frame).
 - No CLI args (edit constants at the top).
 
 **1.2 `preprocess_first10s.py`** — first-10s development-segment preprocessing and quality checks.
 - Input: the decoded stacks.
-- Output: `DAT解析结果/前10s预处理/`.
+- Output: first-10s preprocessing folder with QC figures.
 
 ### Stage 2 — Preparation
 
 **2.1 `step0_5_drift_test.py`** — global drift test; derives the `heart_mask` used by every later stage.
-- Output: `DAT解析结果/第0.5步_漂移检验/漂移检验_统计量.npz` (contains `heart_mask`).
+- Output: drift-test statistics `.npz` (contains `heart_mask`).
 
 **2.2 `step1_3_4_index_cycles_split.py`** — unified frame indexing, per-segment **cardiac cycle detection** (cycle bounds used by cycle-aware registration and phase analysis), and the temporal **70/15/15 train/val/test split** (sealed test set).
-- Output: per-segment `*_周期检测.npz` + split files.
+- Output: per-segment cycle-detection `.npz` + split files.
 
 **2.3 `step8_select_reference.py`** — selects the unified registration **reference frame (global frame 2562)** from stability/quality criteria.
-- Output: `第三版执行/reference/reference_frame.json`.
+- Output: `reference/reference_frame.json`.
 
 ### Stage 3 — Coronary segmentation
 
 **3.1 `prep_seg_dataset.py`** — pack the 200 expert-annotated frames into the training dataset.
-- Output: `第三版执行/segmentation/annotated_200.npz` (images (200,3,H,W), masks (200,H,W), channel statistics, split ids).
+- Output: `segmentation/annotated_200.npz` (images (200,3,H,W), masks (200,H,W), channel statistics, split ids).
 
 **3.2 `seg_common.py`** — shared module, not run directly. Provides the ResUNet (3.45 M params), loss `DiceCE + 0.3·(1−clDice) + 0.1·boundary-BCE`, GPU batched augmentation (affine + flips + per-modality jitter; elastic deformation disabled), and hard metrics (Dice / clDice / HD95 / connected components).
 
@@ -141,7 +141,7 @@ python step5_train_seg.py --config I --seed 0 --epochs 400 --batch 16
 
 **3.4 `step7_train_gated.py`** — gated multimodal-fusion baseline (same CLI as 3.3).
 
-**3.5 `step6_aggregate_seg.py`** — aggregate all runs into the ablation summary table (`消融汇总表.csv` / report).
+**3.5 `step6_aggregate_seg.py`** — aggregate all runs into the ablation summary table (CSV + report).
 
 **3.6 `step12c_task1_seg.py`** — full-60s inference with the adopted model; writes per-frame masks `segmentation_{seg}/masks_raw/*.npy` + structural metrics CSV + probability maps. This is the segmentation deliverable used downstream.
 
@@ -155,7 +155,7 @@ python step5_train_seg.py --config I --seed 0 --epochs 400 --batch 16
 **4.3 `step12b_reg_segment.py`** — baseline per-segment L1+L2+L3 pipeline:
 ```bash
 python step12b_reg_segment.py --start 0 --n 440 --segname 0-10s --config I --workers 8
-# repeat with --start 440/880/1320, --n 440/440/1321, --segname 10-20s/20-30s/后30s
+# repeat with --start 440/880/1320, --n 440/440/1321, --segname 10-20s / 20-30s / last-30s
 ```
 - L1: guarded global translation (frame→reference); L2: intra-cycle DIS (frame→cycle anchor); L3: anchor→reference DIS. Composes into per-frame fields + QC JSON.
 
@@ -169,7 +169,7 @@ python step12b_reg_segment.py --start 0 --n 440 --segname 0-10s --config I --wor
 **5.1 `step6_coronary_analysis_v2.py`** — compute the two paper indicator families for all 2641 frames:
 - **Geometry** (from the adopted masks): area, skeleton length, mean diameter (distance transform sampled on skeleton), branch count (skeleton pixels with >2 neighbors).
 - **Perfusion** (functional): mask-averaged time series computed **directly on the original perfusion stack** (perfusion data is only sampled, never used in registration training).
-- Output: `冠脉分析_指标.csv` (2641 rows × geometry + perfusion columns).
+- Output: coronary analysis metrics CSV (2641 rows × geometry + perfusion columns).
 
 **5.2 `step6d_render_two_videos.py`** — render the two 60 s paper videos at native 44 fps:
 - Video 1: Intensity + mask overlay | structural metrics (segmented y-axis with labeled value ranges).
@@ -212,18 +212,20 @@ Residual ~6 px motion is the physical limit of brightness-matching registration 
 Scripts resolve paths relative to the project root (`SCRIPT_DIR`). Expected data layout (Chinese folder names are part of the on-disk contract and kept in the code):
 
 ```
-DAT解析结果/
-├── 整段数据_2641帧/          # decoded 4-modality stacks
-│   ├── 光强_intensity.npy
-│   ├── 方差_variance.npy
-│   ├── 散斑对比度_contrast.npy
-│   └── 灌注_perfusion.npy
-├── 第0.5步_漂移检验/          # drift stats, heart_mask
-└── 第三版执行/                # all experiment outputs
-    ├── segmentation*/         # masks, metrics
-    ├── registration/          # displacement fields, QC
-    └── 60s统一结果/            # videos, CSV metrics, PDF figures
+decoded_outputs/
+├── full_length_2641_frames/    # decoded 4-modality stacks
+│   ├── intensity.npy
+│   ├── variance.npy
+│   ├── contrast.npy
+│   └── perfusion.npy
+├── drift_test/                 # drift stats, heart_mask
+└── v3_execution/               # all experiment outputs
+    ├── segmentation*/          # masks, metrics
+    ├── registration/           # displacement fields, QC
+    └── unified_60s_results/    # videos, CSV metrics, PDF figures
 ```
+
+Folder and file names in the diagram are descriptive English; the actual on-disk names are Chinese (they are part of the data contract and appear as literal strings inside the scripts — see the `zh/` code for the exact strings).
 
 Raw `.dat` file (`zhuxin.dat`) is not included in this repository (size/licensing); contact the authors for access.
 

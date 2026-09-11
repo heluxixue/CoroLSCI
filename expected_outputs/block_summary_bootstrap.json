@@ -1,0 +1,14 @@
+{
+ "decline_pct_median": 22.3,
+ "decline_pct_CI95": [
+  20.7,
+  23.8
+ ],
+ "slope_median": -2.01,
+ "slope_CI95": [
+  -2.13,
+  -1.9
+ ],
+ "n_blocks_per_session": 12,
+ "block_seconds": 5
+}

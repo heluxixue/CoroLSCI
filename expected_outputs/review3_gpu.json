@@ -1,0 +1,35 @@
+{
+ "t1_norm_x_finetune_val6_dice": {
+  "zero_shot_C1": 0.8095,
+  "zero_shot_C2": 0.7503,
+  "zero_shot_C3": 0.845,
+  "finetuned_C1": 0.912,
+  "finetuned_C2": 0.9121,
+  "finetuned_C3": 0.3875
+ },
+ "stratified_v2": {
+  "thin_E1": {
+   "dice": 0.9812,
+   "px": 8766
+  },
+  "thick_E1": {
+   "dice": 0.9869,
+   "px": 211087
+  },
+  "thin_E2": {
+   "dice": 0.9812,
+   "px": 8766
+  },
+  "thick_E2": {
+   "dice": 0.9869,
+   "px": 211087
+  }
+ },
+ "full_dice_mean": {
+  "aE1": 0.9199,
+  "aE2": 0.9178,
+  "E1E2": 0.9108
+ },
+ "extra_consensus_fp_px_total": 36281.0,
+ "consensus_px_total": 219853
+}

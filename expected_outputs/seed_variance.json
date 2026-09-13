@@ -1,0 +1,62 @@
+{
+ "per_run": {
+  "T3_seed1": {
+   "area_mm2": 540.5,
+   "P_mfr": 1010.4
+  },
+  "T4_seed1": {
+   "area_mm2": 548.8,
+   "P_mfr": 975.4
+  },
+  "T5_seed1": {
+   "area_mm2": 543.8,
+   "P_mfr": 979.9
+  },
+  "T6_seed1": {
+   "area_mm2": 530.6,
+   "P_mfr": 810.4
+  },
+  "T3_seed2": {
+   "area_mm2": 543.1,
+   "P_mfr": 1010.7
+  },
+  "T4_seed2": {
+   "area_mm2": 547.6,
+   "P_mfr": 970.2
+  },
+  "T5_seed2": {
+   "area_mm2": 547.8,
+   "P_mfr": 977.8
+  },
+  "T6_seed2": {
+   "area_mm2": 534.1,
+   "P_mfr": 805.6
+  }
+ },
+ "summary": {
+  "T3": {
+   "area_mean": 542.0,
+   "area_sd_across_seeds": 1.09,
+   "P_mfr_mean": 1010.6,
+   "P_mfr_sd_across_seeds": 0.12
+  },
+  "T4": {
+   "area_mean": 550.3,
+   "area_sd_across_seeds": 3.06,
+   "P_mfr_mean": 971.1,
+   "P_mfr_sd_across_seeds": 3.21
+  },
+  "T5": {
+   "area_mean": 547.5,
+   "area_sd_across_seeds": 2.95,
+   "P_mfr_mean": 977.6,
+   "P_mfr_sd_across_seeds": 2.01
+  },
+  "T6": {
+   "area_mean": 533.0,
+   "area_sd_across_seeds": 1.72,
+   "P_mfr_mean": 807.6,
+   "P_mfr_sd_across_seeds": 2.04
+  }
+ }
+}

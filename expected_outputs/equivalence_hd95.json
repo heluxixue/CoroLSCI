@@ -1,0 +1,45 @@
+{
+ "equivalence": {
+  "area_net_change_pct": -2.1,
+  "CI90": [
+   -2.15,
+   -1.98
+  ],
+  "margin_pct": 5.0,
+  "equivalent": true
+ },
+ "metrics": {
+  "HD95_px": {
+   "algo_vs_E1": [
+    1.02,
+    0.09
+   ],
+   "algo_vs_E2": [
+    1.15,
+    0.26
+   ],
+   "E1_vs_E2": [
+    1.08,
+    0.17
+   ]
+  },
+  "stratified_dice": {
+   "thin_vessels_algo_E1": [
+    0.95,
+    0.02
+   ],
+   "thick_vessels_algo_E1": [
+    0.99,
+    0.0
+   ],
+   "thin_vessels_algo_E2": [
+    0.95,
+    0.02
+   ],
+   "thick_vessels_algo_E2": [
+    0.99,
+    0.0
+   ]
+  }
+ }
+}

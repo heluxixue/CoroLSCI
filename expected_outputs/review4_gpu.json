@@ -1,0 +1,28 @@
+{
+ "contour_hd95_px": {
+  "algo_E1": {
+   "mean": 2.83,
+   "sd": 0.39
+  },
+  "algo_E2": {
+   "mean": 3.03,
+   "sd": 0.57
+  },
+  "E1_E2": {
+   "mean": 2.87,
+   "sd": 0.28
+  }
+ },
+ "consensus_coverage": {
+  "thin": 0.964,
+  "thick": 0.9742
+ },
+ "extra_prediction_px": {
+  "expert_disagreement_zone": 23758,
+  "both_experts_background": 12523,
+  "total": 36281,
+  "consensus_px_total": 219853,
+  "note": "disagreement zone = E1 XOR E2; both-background = predicted where BOTH experts label background"
+ },
+ "definition": "contour = mask minus 1-px binary erosion; HD95 = max of the two directed 95th-percentile contour distances"
+}

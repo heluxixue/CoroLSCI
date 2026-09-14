@@ -1,0 +1,106 @@
+{
+ "provenance": {
+  "T2": {
+   "r_mm_per_px": 0.20849377889155601,
+   "n_samples_stride20": 133,
+   "area_mm2_mean": 544.7,
+   "pmfr_mean": 1033.9,
+   "pmfr_sd": 243.1
+  },
+  "T3": {
+   "r_mm_per_px": 0.2077852334104729,
+   "n_samples_stride20": 133,
+   "area_mm2_mean": 543.8,
+   "pmfr_mean": 1010.6,
+   "pmfr_sd": 217.2
+  },
+  "T4": {
+   "r_mm_per_px": 0.21173579992649033,
+   "n_samples_stride20": 133,
+   "area_mm2_mean": 554.9,
+   "pmfr_mean": 967.7,
+   "pmfr_sd": 232.7
+  },
+  "T5": {
+   "r_mm_per_px": 0.2121015393518676,
+   "n_samples_stride20": 133,
+   "area_mm2_mean": 549.6,
+   "pmfr_mean": 975.0,
+   "pmfr_sd": 233.6
+  },
+  "T6": {
+   "r_mm_per_px": 0.21320551421492895,
+   "n_samples_stride20": 133,
+   "area_mm2_mean": 534.5,
+   "pmfr_mean": 806.8,
+   "pmfr_sd": 206.1
+  }
+ },
+ "perturbation": {
+  "erode1px": {
+   "session_area_mm2": {
+    "T2": 469.6,
+    "T3": 469.2,
+    "T4": 478.1,
+    "T5": 472.6,
+    "T6": 457.4
+   },
+   "net_area_change_pct": -2.61
+  },
+  "dilate1px": {
+   "session_area_mm2": {
+    "T2": 619.9,
+    "T3": 618.5,
+    "T4": 631.8,
+    "T5": 626.7,
+    "T6": 611.7
+   },
+   "net_area_change_pct": -1.32
+  },
+  "baseline": {
+   "net_area_change_pct": -1.88,
+   "note": "stride-20 samples, per-session r_t; Table 4 uses full-frame means (545.6/534.4 -> -2.1%), this is the matching-sampling reference for the perturbation comparison"
+  }
+ },
+ "bootstrap": {
+  "nblocks_6": {
+   "point": 22.0,
+   "median": 22.0,
+   "CI95": [
+    20.3,
+    23.6
+   ]
+  },
+  "nblocks_12": {
+   "point": 22.0,
+   "median": 22.0,
+   "CI95": [
+    19.7,
+    24.1
+   ]
+  },
+  "nblocks_22": {
+   "point": 22.0,
+   "median": 21.9,
+   "CI95": [
+    19.3,
+    24.6
+   ]
+  },
+  "nblocks_33": {
+   "point": 22.0,
+   "median": 22.0,
+   "CI95": [
+    19.1,
+    25.0
+   ]
+  }
+ },
+ "config": {
+  "stride": 20,
+  "B": 4000,
+  "seed": 2026,
+  "block_rule": "contiguous, remainder merged into final block; identical total window for all nblk",
+  "area_calibration": "per-session header resolution_mm_per_pixel (full precision)"
+ }
+}

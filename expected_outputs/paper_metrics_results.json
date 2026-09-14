@@ -1,0 +1,58 @@
+{
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "torch": "2.11.0+cu128",
+  "tf32_cudnn": true,
+  "ResUNet-I (adopted)": {
+    "params_M": 3.452,
+    "GFLOPS": 100.533,
+    "infer_mean_ms_bench": 3.68,
+    "infer_mean_ms_pc": 3.34,
+    "infer_median_ms_pc": 1.98,
+    "peak_activation_MiB": 410.9,
+    "total_resident_MiB": 428.3
+  },
+  "nnU-Net-style": {
+    "params_M": 1.944,
+    "GFLOPS": 38.511,
+    "infer_mean_ms_bench": 3.38,
+    "infer_mean_ms_pc": 3.38,
+    "infer_median_ms_pc": 3.35,
+    "peak_activation_MiB": 112.1,
+    "total_resident_MiB": 123.8
+  },
+  "3D self-supervised": {
+    "params_M": 9.687,
+    "GFLOPS": 37.101,
+    "infer_mean_ms_bench": 2.1,
+    "infer_mean_ms_pc": 2.06,
+    "infer_median_ms_pc": 2.07,
+    "peak_activation_MiB": 50.8,
+    "total_resident_MiB": 88.7
+  },
+  "Flow Matching (centerline)": {
+    "params_M": 0.032,
+    "GFLOPS": 8.817,
+    "infer_mean_ms_bench": 8.9,
+    "note": "per frame = 10 integration steps"
+  },
+  "Gated fusion (ablation)": {
+    "params_M": 3.452,
+    "GFLOPS": 100.651
+  },
+  "decoder": {
+    "ms_per_frame_hot_cache": 10.39,
+    "ms_per_frame_copy_only": 0.0,
+    "ms_per_frame_cold_stream": 41.72,
+    "ms_per_frame_batched": 7.07,
+    "MP_per_frame": 1.421,
+    "MB_per_frame": 5.68,
+    "MBs_at_44fps": 250.1
+  },
+  "indicators": {
+    "fill_ms": 1.21,
+    "structural_ms": 5.86,
+    "perfusion_mean_ms": 0.057,
+    "postprocess_total_ms": 7.07
+  }
+}

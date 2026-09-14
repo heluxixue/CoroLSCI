@@ -1,0 +1,15 @@
+# Frozen environment for CoroLSCI (Windows 11, Anaconda)
+# Generated from the development machine; matches the paper's measurements.
+python=3.11.15
+torch=2.11.0+cu128
+numpy=2.4.4
+scipy=1.17.1
+opencv-python=4.13.0
+scikit-image=0.26.0
+matplotlib=3.11.0
+pandas=2.3.3
+pillow=12.2.0
+
+# optional (auxiliary experiments only)
+nibabel=5.4.2
+SimpleITK=2.5.6
